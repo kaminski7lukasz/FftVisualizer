@@ -1,0 +1,51 @@
+﻿<Window x:Class="FftVisualizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FftVisualizer"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+  Title="Audio Visualization" Height="600" Width="900" Background="Black">
+    <Grid>
+        <!-- Definicje wierszy: Górny wiersz na wykresy, dolny na przycisk -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <!-- Wykresy -->
+            <RowDefinition Height="Auto" />
+            <!-- Przyciski -->
+        </Grid.RowDefinitions>
+
+        <!-- Górny Grid podzielony na dwie kolumny dla wykresów -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <!-- Wykres czasowy -->
+                <ColumnDefinition Width="*" />
+                <!-- Wykres częstotliwości -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Wykres czasowy -->
+            <oxy:PlotView Model="{Binding TimePlotViewModel.TimePlotModel}" 
+                          Grid.Column="0" 
+                          HorizontalAlignment="Stretch" 
+                          VerticalAlignment="Stretch" 
+                          Margin="10"/>
+
+            <!-- Wykres częstotliwości -->
+            <oxy:PlotView Model="{Binding SpectrogramPlotViewModel.SpectrogramPlotModel}" 
+                  Grid.Column="1" 
+                  HorizontalAlignment="Stretch" 
+                  VerticalAlignment="Stretch" 
+                  Margin="10"/>
+        </Grid>
+        <!-- Dolny wiersz z przyciskiem -->
+        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
+            <Button Content="{Binding ButtonContent}" 
+                    Command="{Binding ToggleRecordingCommand}" 
+                    Style="{StaticResource RectangularOrangeButton}"
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch"/>
+        </StackPanel>
+    </Grid>
+</Window>
